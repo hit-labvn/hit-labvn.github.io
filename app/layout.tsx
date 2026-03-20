@@ -1,31 +1,30 @@
 import "./globals.css";
-import { Outfit, Work_Sans } from "next/font/google";
+import { Inter, Manrope } from "next/font/google";
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
-const outfit = Outfit({
+const manrope = Manrope({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-outfit",
+  weight: ["400", "700", "800"],
+  variable: "--font-manrope",
 });
 
-const workSans = Work_Sans({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-work-sans",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
 });
 
-export const metadata = {
-  title: "HITLAB — Software Engineering & Product Development",
+export const metadata: Metadata = {
+  title: "HITLAB | Precision Digital Identity",
   description:
-    "HITLAB builds reliable software, scalable platforms, and modern products for ambitious teams.",
+    "Software development that you can trust. Engineering excellence delivered with mathematical intentionality.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${outfit.variable} ${workSans.variable}`}>
-        {children}
-      </body>
+      <body className={`${manrope.variable} ${inter.variable}`}>{children}</body>
     </html>
   );
 }

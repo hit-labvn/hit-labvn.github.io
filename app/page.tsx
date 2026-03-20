@@ -1,293 +1,195 @@
-"use client";
+const clientLogos = [
+  "Google",
+  "Microsoft",
+  "NVIDIA",
+  "Siemens",
+  "Amazon",
+  "Cisco",
+];
 
-import { useEffect } from "react";
+const expertiseCards = [
+  {
+    title: "Automation System",
+    description:
+      "Optimal automation system design and implementation for efficient operations.",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="7" y="7" width="10" height="10" rx="1.5" />
+        <path d="M4 9h3M4 12h3M4 15h3M17 9h3M17 12h3M17 15h3" />
+        <path d="M9 4v3M12 4v3M15 4v3M9 17v3M12 17v3M15 17v3" />
+      </svg>
+    ),
+  },
+  {
+    title: "AI & Computer Vision",
+    description:
+      "Deploying advanced visual recognition models for real-world intelligence and automation.",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6-10-6-10-6Z" />
+        <circle cx="12" cy="12" r="3" />
+      </svg>
+    ),
+  },
+  {
+    title: "Custom Application",
+    description:
+      "High-performance cross-platform software with seamless user experience and integration.",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="3" y="5" width="18" height="12" rx="2" />
+        <path d="M8 21h8M12 17v4" />
+      </svg>
+    ),
+  },
+];
+
+const footerLinks = {
+  Platform: ["Expertise", "Services", "Projects"],
+  Company: ["Contact", "Privacy Policy", "Terms of Service"],
+};
 
 export default function Home() {
-  useEffect(() => {
-    const progressBar = document.querySelector<HTMLDivElement>(".progress-bar");
-    const updateProgress = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.body.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      if (progressBar) progressBar.style.width = `${progress}%`;
-    };
-    window.addEventListener("scroll", updateProgress, { passive: true });
-    updateProgress();
-    return () => window.removeEventListener("scroll", updateProgress);
-  }, []);
-
-  useEffect(() => {
-    const counters = document.querySelectorAll<HTMLElement>("[data-count]");
-    const animateCount = (el: HTMLElement) => {
-      const target = Number(el.dataset.count);
-      const duration = 1200;
-      const start = performance.now();
-
-      const tick = (now: number) => {
-        const progress = Math.min((now - start) / duration, 1);
-        const value = Math.floor(progress * target);
-        el.textContent = value.toString();
-        if (progress < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-    };
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            animateCount(entry.target as HTMLElement);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.6 }
-    );
-
-    counters.forEach((counter) => observer.observe(counter));
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <>
-      <div className="progress-bar" aria-hidden="true"></div>
-
-      <header className="site-header">
-        <nav className="nav">
-          <a className="logo" href="#">
-            <span className="logo-mark" aria-hidden="true"></span>
+      <nav className="topbar">
+        <div className="shell topbar-inner">
+          <a className="brand" href="#">
             HITLAB
           </a>
-          <div className="nav-links">
-            <a href="#">Home</a>
-            <a href="#expertise">Expertise</a>
-            {/* <a href="#service">Service</a> */}
-            {/* <a href="#projects">Projects</a> */}
-            {/* <a href="#about">About us</a> */}
-            <a href="#contact">Contact</a>
-            <a className="btn btn-small" href="mailto:inquiry@hit-lab.vn">
-              inquiry@hit-lab.vn
-            </a>
-          </div>
-        </nav>
-      </header>
 
-      <main>
-        <section className="hero">
-          <div className="hero-content">
-            <p className="eyebrow">Software development that you can trust</p>
+          <div className="topbar-links" aria-label="Primary">
+            <a className="is-active" href="#expertise">
+              Expertise
+            </a>
+            <a href="#contact">Services</a>
+            <a href="#contact">Projects</a>
+            <a href="#contact">Contact</a>
+          </div>
+
+          <a className="pill-button" href="mailto:inquiry@hit-lab.vn">
+            Get Started
+          </a>
+        </div>
+      </nav>
+
+      <main className="landing-page">
+        <section className="shell hero-section">
+          <div className="hero-copy">
+            <p className="eyebrow">Engineering Excellence</p>
             <h1>
-              Build reliable products, fast.
+              Build reliable products, <span>fast.</span>
             </h1>
+
             <div className="hero-actions">
+              <a className="pill-button pill-button-primary" href="mailto:inquiry@hit-lab.vn">
+                Start Project
+              </a>
+              <a className="pill-button pill-button-muted" href="#services">
+                Our Services
+              </a>
+            </div>
+          </div>
+
+          <div className="hero-visual">
+            <div className="hero-glow" aria-hidden="true"></div>
+            <div className="hero-image-frame">
+              <img
+                alt="Modern high-tech server room with blue neon lighting and cable management"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUORMuzV5mbM-XTDOi78gZPSH77_vgGSmH8b_BF8sLTFHGN_06rK01Y3yFIbrGrXT5HyvoqE6E2YeBKUXLqRUCLyEN4IRD88C5m_SZXQZ44_UCIC2t7W0whD7ED8KBCN4Rn0_Om364snSYIcwD0uc5RfQd3bAQ6OF1uPvDs0EQ6cNczVmGZnftgyc4aTnTJxfnKbPt1GBV-XV9QpuW9xrfgJDVLWkara-_0JlwdNJCJTX7FD4g2ohNfiznapsp3pHlU1ZoxlELD9KU"
+              />
             </div>
           </div>
         </section>
 
-        <section id="expertise" className="section">
-          <div className="section-header">
-            <p className="eyebrow">Expertise</p>
-            <h2>Engineering that scales with your business.</h2>
-          </div>
-          <div className="card-grid">
-            <article className="card">
-              <div className="icon">
-                <svg
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect x="7" y="7" width="10" height="10" rx="1" />
-                  <path d="M4 9h3M4 12h3M4 15h3M17 9h3M17 12h3M17 15h3" />
-                  <path d="M9 4v3M12 4v3M15 4v3M9 17v3M12 17v3M15 17v3" />
-                </svg>
-              </div>
-              <h3>Embedded Systems</h3>
-              <p>
-              </p>
-            </article>
-            <article className="card">
-              <div className="icon">
-                <svg
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6-10-6-10-6z" />
-                  <circle cx="12" cy="12" r="3" />
-                </svg>
-              </div>
-              <h3>AI & Computer Vision</h3>
-              <p>
-
-              </p>
-            </article>
-            <article className="card">
-              <div className="icon">
-                <svg
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect x="3" y="5" width="18" height="12" rx="2" />
-                  <path d="M8 21h8" />
-                  <path d="M12 17v4" />
-                </svg>
-              </div>
-              <h3>Desktop application</h3>
-              <p>
-              </p>
-            </article>
+        <section className="shell trust-section" aria-labelledby="trusted-by-title">
+          <p id="trusted-by-title" className="trust-title">
+            Trusted by customers
+          </p>
+          <div className="logo-row">
           </div>
         </section>
 
-        {/* <section id="service" className="section alt">
-          <div className="section-header">
-            <p className="eyebrow">Service</p>
-            <h2>End-to-end delivery, tailored to your goals.</h2>
-            <p>
-              From discovery and design to implementation and optimization, we
-              build with clarity, speed, and accountability.
-            </p>
+        <section id="expertise" className="feature-band">
+          <div className="shell">
+            <div className="section-heading">
+              <h2>Technical Expertise</h2>
+              <p>
+                Our core focus lies in the intersection of performance,
+                reliability, and innovative engineering.
+              </p>
+            </div>
+
+            <div className="expertise-grid">
+              {expertiseCards.map((card) => (
+                <article key={card.title} className="expertise-card">
+                  <div className="expertise-icon">{card.icon}</div>
+                  <h3>{card.title}</h3>
+                  <p>{card.description}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
-        <section id="projects" className="section">
-          <div className="section-header">
-            <p className="eyebrow">Projects</p>
-            <h2>Recent work across web, mobile, and data platforms.</h2>
-            <p>
-              A selection of projects that highlight our execution velocity and
-              quality standards.
-            </p>
-          </div>
-        </section>
-
-        <section id="about" className="section">
-          <div className="section-header">
-            <p className="eyebrow">About us</p>
-            <h2>Senior teams, embedded for impact.</h2>
-            <p>
-              HITLAB brings focused teams of engineers and strategists to help
-              ambitious companies ship with confidence.
-            </p>
-          </div>
-        </section>
-
-
-        <section id="testimonials" className="section alt">
-          <div className="section-header">
-            <p className="eyebrow">Proof</p>
-            <h2>Trusted by teams that ship mission-critical software.</h2>
-            <p>
-              We align with leadership, embed with product teams, and focus on
-              measurable outcomes.
-            </p>
-          </div>
-          <div className="testimonial-grid">
-            <article className="testimonial">
-              <div className="stars" aria-label="5 star rating">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-              <p>
-                “HITLAB helped us rebuild our platform without slowing down our
-                roadmap. The delivery cadence and technical rigor were
-                unmatched.”
-              </p>
-              <div className="person">
-                <span className="avatar"></span>
-                <div>
-                  <strong>Rina Patel</strong>
-                  <span>VP Engineering, NovaBank</span>
-                </div>
-              </div>
-            </article>
-            <article className="testimonial">
-              <div className="stars" aria-label="5 star rating">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-              <p>
-                “We trusted HITLAB with our patient experience stack. The team
-                delivered reliability and compliance without sacrificing speed.”
-              </p>
-              <div className="person">
-                <span className="avatar"></span>
-                <div>
-                  <strong>Marco Silva</strong>
-                  <span>CTO, Pulse Health</span>
-                </div>
-              </div>
-            </article>
-            <article className="testimonial">
-              <div className="stars" aria-label="5 star rating">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-              <p>
-                “Our logistics platform gained observability, faster releases,
-                and a much stronger engineering culture.”
-              </p>
-              <div className="person">
-                <span className="avatar"></span>
-                <div>
-                  <strong>Jules Fischer</strong>
-                  <span>Director of Product, AtlasWare</span>
-                </div>
-              </div>
-            </article>
-          </div>
-        </section> */}
-
-        <section className="cta" id="contact">
-          <div>
+        <section id="services" className="shell cta-section">
+          <div className="cta-panel">
             <h2>Your ideas. Our engineering.</h2>
-            <div className="cta-form">
-              <div className="cta-inline">
-                <p className="cta-note">Get in touch with us:</p>
-                <a className="cta-email" href="mailto:inquiry@hit-lab.vn">
-                  inquiry@hit-lab.vn
-                </a>
-              </div>
+            <div className="cta-stack">
+              <p>inquiry@hit-lab.vn</p>
+              <a className="pill-button pill-button-primary" href="mailto:inquiry@hit-lab.vn">
+                Get in Touch
+              </a>
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="footer">
-        <div>
-          <strong>HITLAB</strong>
-          <p>Software development</p>
+      <footer id="contact" className="site-footer">
+        <div className="shell footer-grid">
+          <div className="footer-brand">
+            <h3>HITLAB Company Limited</h3>
+          </div>
+
+          {Object.entries(footerLinks).map(([group, links]) => (
+            <div key={group} className="footer-column">
+              <h4>{group}</h4>
+              <ul>
+                {links.map((link) => (
+                  <li key={link}>
+                    <a href={link === "Expertise" ? "#expertise" : "#"}>{link}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          <div className="footer-column">
+            <h4>Contact</h4>
+            <p>
+              Ho Chi Minh City, Vietnam
+              <br />
+              inquiry@hit-lab.vn
+            </p>
+          </div>
         </div>
-        <div className="footer-links">
-          <a href="#">Home</a>
-          <a href="#expertise">Expertise</a>
-          {/* <a href="#service">Service</a> */}
-          {/* <a href="#projects">Projects</a> */}
-          {/* <a href="#about">About us</a> */}
-          <a href="#contact">Contact</a>
+
+        <div className="shell footer-bottom">
+          <p>© 2026 HITLAB Company Limited. All rights reserved.</p>
+          <div className="footer-socials" aria-label="Social links">
+            <a href="#" aria-label="Website">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3a9 9 0 1 0 0 18a9 9 0 0 0 0-18Z" />
+                <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" />
+              </svg>
+            </a>
+            <a href="mailto:inquiry@hit-lab.vn" aria-label="Email">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 6h16v12H4z" />
+                <path d="m5 7 7 6 7-6" />
+              </svg>
+            </a>
+          </div>
         </div>
       </footer>
     </>
