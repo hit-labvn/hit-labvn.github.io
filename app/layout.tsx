@@ -16,7 +16,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "HITLAB | Precision Digital Identity",
+  title: "HITLAB",
   description:
     "Software development that you can trust. Engineering excellence delivered with mathematical intentionality.",
 };
