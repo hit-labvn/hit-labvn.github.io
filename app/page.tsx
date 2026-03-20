@@ -65,8 +65,8 @@ export default function Home() {
             {/* <a href="#projects">Projects</a> */}
             {/* <a href="#about">About us</a> */}
             <a href="#contact">Contact</a>
-            <a className="btn btn-small" href="tel:+84843042307">
-              +84 84 304 2307
+            <a className="btn btn-small" href="mailto:inquiry@hit-lab.vn">
+              inquiry@hit-lab.vn
             </a>
           </div>
         </nav>
